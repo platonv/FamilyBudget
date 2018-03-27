@@ -28,7 +28,7 @@ public class MemberRepository {
 		
 		while ((currentLine = bufferedReader.readLine()) != null) {
 			String line[] = currentLine.split(";");
-			Member m = new Member(line[0], line[1]);
+			Member m = new Member(line[0], Integer.parseInt(line[1]));
 			this.members.add(m);			
 		}
 	 }catch(Exception ex){

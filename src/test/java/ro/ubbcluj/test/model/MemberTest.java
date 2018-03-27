@@ -11,7 +11,7 @@ public class MemberTest {
         Member member = new Member("name", 1);
 
         assertEquals(member.getName(), "name", "getName did not return expected \"name\"");
-        assertEquals(member.getId(), "1", "getId did not return expected \"name\"");
+        assertEquals(member.getId(), 1, "getId did not return expected \"name\"");
     }
 
     @Test

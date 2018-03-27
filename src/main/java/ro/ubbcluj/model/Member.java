@@ -13,7 +13,7 @@ public class Member {
 		this.name = name;
 	}
 
-	public int setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
