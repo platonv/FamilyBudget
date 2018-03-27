@@ -48,16 +48,26 @@ public class MemberUI {
 		
 		System.out.println(menu);
 	}
-	
+
+	public int readInt() {
+		int cmd = 0;
+		try {
+            cmd = in.nextInt();
+            in.nextLine();
+            return cmd;
+		} catch(NumberFormatException e) {
+			System.out.println("Error reading command");
+			return -1;
+		}
+	}
 	
 	public void Run()
 	{
 		printMenu();
 	
-		
-		int cmd=in.nextInt();
-		in.nextLine();
-		
+
+		int cmd = readInt();
+
 		while(cmd!=0)
 		{
 			if(cmd==1)
@@ -65,15 +75,13 @@ public class MemberUI {
 				System.out.println("Enter name:");
 				String name = in.nextLine();
 				System.out.println("Enter id:");
-				String id = in.nextLine();			
+				int id = readInt();
 				Member aMemebr = new Member(name,id);
 				ctrl.addMember(aMemebr);		
 				
 			}
 			if(cmd==2)
 			{
-				
-				
 				System.out.println("Enter type:");
 				String type = in.nextLine();
 				
@@ -91,7 +99,7 @@ public class MemberUI {
 			}
 			if(cmd==3)
 			{
-				System.out.println("list the current budget :");
+			    System.out.println("list the current budget :");
 				
 									
 				
@@ -101,8 +109,7 @@ public class MemberUI {
 			}
 
 			printMenu();
-			cmd=in.nextInt();
-			in.nextLine();
+			cmd = readInt();
 		}
 	}
 }
