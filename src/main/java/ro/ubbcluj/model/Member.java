@@ -2,18 +2,20 @@ package ro.ubbcluj.model;
 
 public class Member {
 	private String name;
-	private int id;
-	
-	public Member(String name, int id){
-		this.name= name;
-		this.id=id;
+	private String id;
+
+	public Member(String id, String name) {
+		this.name = name;
+		this.id = id;
+
+
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -21,12 +23,11 @@ public class Member {
 		return name;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	
+
 	public String toString() {
-		String s=this.name + " " + this.id;
-		return s;   
+		return this.name + ";" + this.id;
 	}
 }

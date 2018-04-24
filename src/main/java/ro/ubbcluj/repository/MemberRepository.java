@@ -1,67 +1,55 @@
 package ro.ubbcluj.repository;
 
-import ro.ubbcluj.model.Entry;
 import ro.ubbcluj.model.Member;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MemberRepository {
-	private List<Member> members = new ArrayList<Member>();
-	private List<Entry> entries = new ArrayList<Entry>();
+    public List<Member> members = new ArrayList<Member>();
 
-	private final static String filenameMember = "membersF.txt";
-	private final static String filenameBudget = "budgetF.txt";
+    private final static String filenameMember = "membersF.txt";
 
-	@SuppressWarnings("resource")
-	public MemberRepository() {
-		
-	try{
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
-		String currentLine = null;
+    public MemberRepository() {
+//        this.loadFromFile();
+    }
 
-		fileReader = new FileReader(filenameMember);
-		bufferedReader = new BufferedReader(fileReader);
-		
-		while ((currentLine = bufferedReader.readLine()) != null) {
-			String line[] = currentLine.split(";");
-			Member m = new Member(line[0], Integer.parseInt(line[1]));
-			this.members.add(m);			
-		}
-	 }catch(Exception ex){
-         System.err.println(ex.getMessage());
-     }
-	try{
-		FileReader fileReaderEntry = null;
-		BufferedReader bufferedReaderEntry = null;
-		String currentLineEntry = null;
+    private void loadFromFile() {
+        try {
+            FileReader fileReader = null;
+            BufferedReader bufferedReader = null;
+            String currentLine = null;
 
-		fileReaderEntry = new FileReader(filenameMember);
-		bufferedReaderEntry = new BufferedReader(fileReaderEntry);
-		
-		while ((currentLineEntry = bufferedReaderEntry.readLine()) != null) {
-			String line[] = currentLineEntry.split(";");
-			int valueEntry = Integer.parseInt(line[1]);
-			int idEntryMember = Integer.parseInt(line[2]);
-			Entry e = new Entry(line[0],valueEntry,idEntryMember);
-			this.entries.add(e);			
-		}
-	 }catch(Exception ex){
-         System.err.println(ex.getMessage());
-     }
-	}
+            fileReader = new FileReader(filenameMember);
+            bufferedReader = new BufferedReader(fileReader);
 
-	 public void addMember(Member m){
-		 members.add(m);		 	 
-	 }
-	 public void addEntry(Entry e){
-		 entries.add(e);		 	 
-	 }
-	 public List<Entry> getAllEntries(){
-		 
-		 return entries;
-	 }
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                String line[] = currentLine.split(";");
+                Member m = new Member(line[0], line[1]);
+                this.members.add(m);
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+    private void writeToFile(Member m) {
+        try (FileWriter fw = new FileWriter(filenameMember,true);
+             BufferedWriter bw= new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw))
+        {
+            out.println(m.toString());
+
+        }
+        catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void addMember(Member m) {
+        members.add(m);
+        writeToFile(m);
+    }
 }

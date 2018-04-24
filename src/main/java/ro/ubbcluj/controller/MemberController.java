@@ -1,33 +1,27 @@
 package ro.ubbcluj.controller;
 
-import ro.ubbcluj.model.Entry;
 import ro.ubbcluj.model.Member;
 import ro.ubbcluj.repository.MemberRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MemberController {
-	
+
     private MemberRepository mr;
-    
-    public MemberController(MemberRepository newMr){    	
-    	this.mr =newMr;    	
-    }
-    
-    public void addMember(Member aMemebr) {
-        mr.addMember(aMemebr);    	
+
+    public MemberController(MemberRepository newMr){
+        this.mr =newMr;
     }
 
-    public void addEntry(Entry oneEntry) {
-        mr.addEntry(oneEntry);    	
+    public boolean validateMemberName(String name) {
+        if (name.matches(".*\\d+.*")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-     public List<Entry> allEntries() {
-        
-    	
-        List<Entry> allE = new ArrayList<Entry>();
-        allE = this.mr.getAllEntries();
-        return allE;
+    public void addMember(String id,String name)
+    {
+        Member member= new Member(id,name);
+        mr.addMember(member);
     }
-} 
+}
